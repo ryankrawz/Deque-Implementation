@@ -76,4 +76,5 @@ public class LinkedDeque<T> implements Deque<T> {
   result += " ]";
   return result;
   }
+
 }
