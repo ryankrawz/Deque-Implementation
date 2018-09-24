@@ -1,9 +1,8 @@
-public interface Queue<Item> {
+public interface Queue<T> {
 
-  void enqueue(Item item);
-  Item dequeue();
-  Item peek();
-
+  void enqueue(T item);
+  T dequeue();
+  T peek();
   boolean isEmpty();
   int size();
   String toString();
