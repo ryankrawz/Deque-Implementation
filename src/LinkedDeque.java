@@ -2,29 +2,34 @@ import java.lang.*;
 
 public class LinkedDeque<T> implements Deque<T> {
 
-  private int N;
+  private int lN, rN;
   private Node farLeft, farRight;
 
   class Node {
-      T info;
-      Node right;
-      Node left;
-      Node(T info, Node left, Node right) {
-          this.info = info;
-          this.left = left;
-          this.right = right;
-      }
+    T info;
+    Node right;
+    Node left;
+    Node(T info, Node left, Node right) {
+      this.info = info;
+      this.left = left;
+      this.right = right;
+    }
   }
 
   public LinkedDeque() {
-    this.N = 0;
+    this.lN = 0;
+    this.rN = 0;
     this.farLeft = null;
     this.farRight = null;
   }
 
   public void pushLeft(T item) {
-    this.farLeft = new Node(item, null, this.farLeft);
-    this.N++;
+    if (this.lN == 0 && this.rN == 1) {
+      this.farLeft = new Node(item, null, this.farRight);
+    } else {
+      this.farLeft = new Node(item, null, this.farLeft);
+    }
+    this.lN++;
   }
 
   public T popLeft(){
@@ -34,14 +39,18 @@ public class LinkedDeque<T> implements Deque<T> {
     else {
         T info = this.farLeft.info;
         this.farLeft = this.farLeft.right;
-        this.N--;
+        this.lN--;
         return info;
     }
   }
 
   public void pushRight(T item) {
-    this.farRight = new Node(item, this.farRight, null);
-    this.N++;
+    if (this.rN == 0 && this.lN == 1) {
+      this.farRight = new Node(item, this.farLeft, null);
+    } else {
+      this.farRight = new Node(item, this.farRight, null);
+    }
+    this.rN++;
   }
 
   public T popRight() {
@@ -51,26 +60,27 @@ public class LinkedDeque<T> implements Deque<T> {
     else {
       T info = this.farRight.info;
       this.farRight = this.farRight.left;
-      this.N--;
+      this.rN--;
       return info;
+    }
   }
-}
 
   public int size() {
-    return this.N;
+    return this.lN + this.rN;
   }
 
   public boolean isEmpty() {
-    return this.N == 0;
+    return this.lN + this.rN == 0;
   }
 
   public String toString() {
   String result = "[";
   Node current = this.farLeft;
-  for (int i = 0; i < this.N; i++) {
+  int limit = this.size();
+  for (int i = 0; i < limit; i++) {
     result += " " + current.info;
-    if (current.right != null) { current = current.right; }
-    if(i < this.N - 1) {
+    if (!(i == limit - 1)) { current = current.right; }
+    if(i < limit - 1) {
       result += " ,";
     }
   }
