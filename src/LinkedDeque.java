@@ -1,3 +1,8 @@
+/*
+Linked Deque ADT
+Nick Hawk & Ryan Krawczyk
+ */
+
 import java.lang.*;
 
 public class LinkedDeque<T> implements Deque<T> {

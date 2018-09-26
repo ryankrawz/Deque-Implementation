@@ -1,3 +1,9 @@
+/*
+Deque API
+Nick Hawk & Ryan Krawczyk
+ */
+
+
 public interface Deque<T> {
   
   void pushLeft(T item);
