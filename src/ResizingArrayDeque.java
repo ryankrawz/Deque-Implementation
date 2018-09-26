@@ -30,6 +30,7 @@ public class ResizingArrayDeque<T> implements Deque<T> {
     this.left = 0;
     this.right = this.N;
   }
+
   public void pushLeft(T item) {
     if (this.N == this.items.length) {
       resize(this.N * 2);
@@ -45,11 +46,11 @@ public class ResizingArrayDeque<T> implements Deque<T> {
     if (this.right == this.items.length) {
       this.right = 0;
     }
-    }
+  }
 
   public T popLeft() {
     if (this.N == 0) {
-      throw new NoSuchElementException("UNDERFLOW");
+      throw new NoSuchElementException("EMPTY DEQUE");
     }
     T item = this.items[this.left];
     this.items[this.left++] = null;
@@ -61,7 +62,6 @@ public class ResizingArrayDeque<T> implements Deque<T> {
     }
     return item;
   }
-
 
   public void pushRight(T item) {
     if (this.N == this.items.length) {
@@ -82,7 +82,7 @@ public class ResizingArrayDeque<T> implements Deque<T> {
 
   public T popRight() {
     if (this.N == 0) {
-      throw new NoSuchElementException("UNDERFLOW");
+      throw new NoSuchElementException("EMPTY DEQUE");
     }
     T item = this.items[this.right];
     this.items[this.right--] = null;

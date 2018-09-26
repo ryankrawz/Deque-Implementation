@@ -4,6 +4,7 @@ Nick Hawk & Ryan Krawczyk
  */
 
 import java.lang.*;
+import java.util.*;
 
 public class LinkedDeque<T> implements Deque<T> {
 
@@ -43,7 +44,7 @@ public class LinkedDeque<T> implements Deque<T> {
 
   public T popLeft(){
     if (this.isEmpty()) {
-        throw new RuntimeException("STACK UNDERFLOW");
+        throw new NoSuchElementException("EMPTY DEQUE");
     }
     else {
         T info = this.farLeft.info;
@@ -68,7 +69,7 @@ public class LinkedDeque<T> implements Deque<T> {
 
   public T popRight() {
     if (this.isEmpty()) {
-        throw new RuntimeException("STACK UNDERFLOW");
+        throw new NoSuchElementException("EMPTY DEQUE");
     }
     else {
       T info = this.farRight.info;
@@ -78,13 +79,9 @@ public class LinkedDeque<T> implements Deque<T> {
     }
   }
 
-  public int size() {
-    return this.lN + this.rN;
-  }
+  public int size() { return this.lN + this.rN; }
 
-  public boolean isEmpty() {
-    return this.lN + this.rN == 0;
-  }
+  public boolean isEmpty() { return this.lN + this.rN == 0; }
 
   public String toString() {
   String result = "[";
