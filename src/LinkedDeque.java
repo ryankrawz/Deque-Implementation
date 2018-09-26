@@ -31,8 +31,12 @@ public class LinkedDeque<T> implements Deque<T> {
   public void pushLeft(T item) {
     if (this.lN == 0 && this.rN == 1) {
       this.farLeft = new Node(item, null, this.farRight);
-    } else {
+      this.farRight.left = this.farLeft;
+    } else if (this.lN == 0 && this.rN == 0) {
       this.farLeft = new Node(item, null, this.farLeft);
+    } else {
+      this.farLeft.left = new Node(item, null, this.farLeft);
+      this.farLeft = this.farLeft.left;
     }
     this.lN++;
   }
@@ -52,8 +56,12 @@ public class LinkedDeque<T> implements Deque<T> {
   public void pushRight(T item) {
     if (this.rN == 0 && this.lN == 1) {
       this.farRight = new Node(item, this.farLeft, null);
-    } else {
+      this.farLeft.right = this.farRight;
+    } else if (this.rN == 0 && this.lN == 0) {
       this.farRight = new Node(item, this.farRight, null);
+    } else {
+      this.farRight.right = new Node(item, this.farRight, null);
+      this.farRight = this.farRight.right;
     }
     this.rN++;
   }
@@ -83,7 +91,7 @@ public class LinkedDeque<T> implements Deque<T> {
   Node current = this.farLeft;
   int limit = this.size();
   for (int i = 0; i < limit; i++) {
-    result += " " + current.info;
+    result += " " + current.info.toString();
     if (!(i == limit - 1)) { current = current.right; }
     if(i < limit - 1) {
       result += " ,";
@@ -93,23 +101,12 @@ public class LinkedDeque<T> implements Deque<T> {
   return result;
   }
 
-//  public String toString() {
-//    StringBuilder sb = new StringBuilder();
-//    sb.append("[ ");
-//    Node current = this.farLeft;
-//    while (current != null) {
-//      sb.append(current.info.toString() + " ");
-//      current = current.right;
-//    }
-//    sb.append("]");
-//    return sb.toString();
-//  }
-
   public static void main(String[] args) {
     /* Unit Testing */
     Deque<String> testDeque = new LinkedDeque<String>();
 
     // Pushing
+    System.out.format("%n");
     testDeque.pushLeft("Gunther");
     System.out.format("After pushing Gunther left: %s%n", testDeque.toString());
     testDeque.pushRight("Garth");
@@ -121,7 +118,15 @@ public class LinkedDeque<T> implements Deque<T> {
     System.out.format("Size of deque: %d%n%n", testDeque.size());
 
     // Popping
-
+    int roof = testDeque.size();
+    for (int i = 0; i < roof; i++) {
+      if (i % 2 == 0) {
+        System.out.format("After popping %s left: %s%n", testDeque.popLeft(), testDeque.toString());
+      } else {
+        System.out.format("After popping %s right: %s%n", testDeque.popRight(), testDeque.toString());
+      }
+    }
+    System.out.format("Size of deque: %d%n%n", testDeque.size());
   }
 
 }
