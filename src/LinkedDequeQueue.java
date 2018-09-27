@@ -34,11 +34,25 @@ public class LinkedDequeQueue<T> implements Queue<T> {
 
     public static void main(String[] args) {
         /* Unit Testing */
+        Queue<String> testQ = new LinkedDequeQueue<String>();
         ArrayList<String> names = new ArrayList<String>();
         names.add("Gunther");
         names.add("Garth");
         names.add("Gary");
         names.add("Gus");
+
+        // Enqueue
+        for (int i = 0; i < names.size(); i++) {
+            testQ.enqueue(names.get(i));
+            System.out.format("After enqueueing %s: %s%n", names.get(i), testQ.toString());
+        }
+        System.out.format("Size of queue: %d%n", testQ.size());
+
+        // Dequeue
+        for (int j = 0; j < names.size(); j++) {
+            System.out.format("After dequeueing %s: %s%n", testQ.dequeue(), testQ.toString());
+        }
+        System.out.format("Size of queue: %d%n", testQ.size());
     }
 
 }
