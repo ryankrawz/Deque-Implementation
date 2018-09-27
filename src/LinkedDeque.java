@@ -42,7 +42,7 @@ public class LinkedDeque<T> implements Deque<T> {
     this.lN++;
   }
 
-  public T popLeft(){
+  public T popLeft() {
     if (this.isEmpty()) {
         throw new NoSuchElementException("EMPTY DEQUE");
     }
@@ -51,6 +51,15 @@ public class LinkedDeque<T> implements Deque<T> {
         this.farLeft = this.farLeft.right;
         this.lN--;
         return info;
+    }
+  }
+
+  public T peekLeft() {
+    if (this.isEmpty()) {
+      throw new NoSuchElementException("EMPTY DEQUE");
+    }
+    else {
+      return this.farLeft.info;
     }
   }
 
@@ -76,6 +85,15 @@ public class LinkedDeque<T> implements Deque<T> {
       this.farRight = this.farRight.left;
       this.rN--;
       return info;
+    }
+  }
+
+  public T peekRight() {
+    if (this.isEmpty()) {
+      throw new NoSuchElementException("EMPTY DEQUE");
+    }
+    else {
+      return this.farRight.info;
     }
   }
 
