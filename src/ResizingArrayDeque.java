@@ -10,8 +10,7 @@ Nick Hawk & Ryan Krawczyk
 
 public class ResizingArrayDeque<T> implements Deque<T> {
 
-  private int N;
-  private int left, right;
+  private int N, left, right;
   private T[] items;
 
   public ResizingArrayDeque() {
@@ -25,8 +24,8 @@ public class ResizingArrayDeque<T> implements Deque<T> {
     T[] newItems = (T[]) new Object[n];
     for(int i = 0; i < this.N; i++) {
       newItems[i] = this.items[(this.left + i) % items.length];
-      }
-    items = newItems;
+    }
+    this.items = newItems;
     this.left = 0;
     this.right = this.N;
   }
