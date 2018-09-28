@@ -63,6 +63,8 @@ public class ResizingArrayDeque<T> implements Deque<T> {
     return item;
   }
 
+  public T peekLeft() { return this.items[this.left]; }
+
   public void pushRight(T item) {
     if (this.N == this.items.length) {
       resize(this.N * 2);
@@ -93,6 +95,8 @@ public class ResizingArrayDeque<T> implements Deque<T> {
     }
     return item;
   }
+
+  public T peekRight() { return this.items[this.right]; }
 
   public int size() { return this.N; }
   public boolean isEmpty() { return this.N == 0; }
