@@ -51,7 +51,7 @@ public class LinkedDequeQueue<T> implements Queue<T> {
         for (int j = 0; j < names.size(); j++) {
             System.out.format("After dequeueing %s: %s%n", testQ.dequeue(), testQ.toString());
         }
-        System.out.format("Size of queue: %d%n", testQ.size());
+        System.out.format("Size of queue: %d%n%n", testQ.size());
     }
 
 }

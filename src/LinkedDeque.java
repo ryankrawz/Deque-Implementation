@@ -34,7 +34,8 @@ public class LinkedDeque<T> implements Deque<T> {
       this.farLeft = new Node(item, null, this.farRight);
       this.farRight.left = this.farLeft;
     } else if (this.lN == 0 && this.rN == 0) {
-      this.farLeft = new Node(item, null, this.farLeft);
+      this.farLeft = new Node(item, null, null);
+      this.farRight = this.farLeft;
     } else {
       this.farLeft.left = new Node(item, null, this.farLeft);
       this.farLeft = this.farLeft.left;
@@ -68,7 +69,8 @@ public class LinkedDeque<T> implements Deque<T> {
       this.farRight = new Node(item, this.farLeft, null);
       this.farLeft.right = this.farRight;
     } else if (this.rN == 0 && this.lN == 0) {
-      this.farRight = new Node(item, this.farRight, null);
+      this.farRight = new Node(item, null, null);
+      this.farLeft = this.farRight;
     } else {
       this.farRight.right = new Node(item, this.farRight, null);
       this.farRight = this.farRight.right;
@@ -119,23 +121,29 @@ public class LinkedDeque<T> implements Deque<T> {
   public static void main(String[] args) {
     /* Unit Testing */
     Deque<String> testDeque = new LinkedDeque<String>();
+    ArrayList<String> names = new ArrayList<String>();
+    names.add("Gunther");
+    names.add("Garth");
+    names.add("Gary");
+    names.add("Gus");
 
     // Pushing
     System.out.format("%n");
-    testDeque.pushLeft("Gunther");
-    System.out.format("After pushing Gunther left: %s%n", testDeque.toString());
-    testDeque.pushRight("Garth");
-    System.out.format("After pushing Garth right: %s%n", testDeque.toString());
-    testDeque.pushLeft("Gary");
-    System.out.format("After pushing Gary left: %s%n", testDeque.toString());
-    testDeque.pushRight("Gus");
-    System.out.format("After pushing Gus right: %s%n", testDeque.toString());
+    for (int i = 0; i < names.size(); i++) {
+      if (i % 2 == 0) {
+        testDeque.pushLeft(names.get(i));
+        System.out.format("After pushing %s left: %s%n", names.get(i), testDeque.toString());
+      } else {
+        testDeque.pushRight(names.get(i));
+        System.out.format("After pushing %s right: %s%n", names.get(i), testDeque.toString());
+      }
+    }
     System.out.format("Size of deque: %d%n%n", testDeque.size());
 
     // Popping
     int roof = testDeque.size();
-    for (int i = 0; i < roof; i++) {
-      if (i % 2 == 0) {
+    for (int j = 0; j < roof; j++) {
+      if (j % 2 == 0) {
         System.out.format("After popping %s left: %s%n", testDeque.popLeft(), testDeque.toString());
       } else {
         System.out.format("After popping %s right: %s%n", testDeque.popRight(), testDeque.toString());
