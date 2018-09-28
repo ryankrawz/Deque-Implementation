@@ -95,9 +95,55 @@ public class ResizingArrayDeque<T> implements Deque<T> {
 }
 
   public int size() { return this.N; }
+
   public boolean isEmpty() { return this.N == 0; }
-  // public String toString();
 
+  public String toString() {
 
+    String f = "[";
 
- }
+    for (int i = 0; i < this.N; i++) {
+
+      if (i + this.left >= items.length) {
+        f += this.items[i + this.left - this.items.length];
+        if(i != this.N-1) { f += ", "; }
+        else { f += "]"; }
+      }
+      else {
+        f += this.items[i + this.left];
+        if(i != this.N-1) { f += ", "; }
+        else { f += "]"; }
+      }
+  }
+  return f;
+  }
+
+  public static void main(String[] args) {
+
+    Deque<String> testDeque = new ResizingArrayDeque<String>();
+
+    // Pushing
+    System.out.format("%n");
+    testDeque.pushLeft("Gunther");
+    System.out.format("After pushing Gunther left: %s%n", testDeque.toString());
+    testDeque.pushRight("Garth");
+    System.out.format("After pushing Garth right: %s%n", testDeque.toString());
+    testDeque.pushLeft("Gary");
+    System.out.format("After pushing Gary left: %s%n", testDeque.toString());
+    testDeque.pushRight("Gus");
+    System.out.format("After pushing Gus right: %s%n", testDeque.toString());
+    System.out.format("Size of deque: %d%n%n", testDeque.size());
+
+    // Popping
+    int roof = testDeque.size();
+    for (int i = 0; i < roof; i++) {
+      if (i % 2 == 0) {
+        System.out.format("After popping %s left: %s%n", testDeque.popLeft(), testDeque.toString());
+      } else {
+        System.out.format("After popping %s right: %s%n", testDeque.popRight(), testDeque.toString());
+      }
+    }
+    System.out.format("Size of deque: %d%n%n", testDeque.size());
+  }
+
+  }
