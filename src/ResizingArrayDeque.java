@@ -4,7 +4,7 @@ Nick Hawk & Ryan Krawczyk
  */
 
  import java.lang.*;
- import java.util.NoSuchElementException;
+ import java.util.*;
 
  @SuppressWarnings("unchecked")
 
@@ -104,44 +104,49 @@ public class ResizingArrayDeque<T> implements Deque<T> {
 
   public String toString() {
 
-    String f = "[";
+    String f = "[ ";
 
     for (int i = 0; i < this.N; i++) {
 
       if (i + this.left >= items.length) {
         f += this.items[i + this.left - this.items.length];
-        if(i != this.N-1) { f += ", "; }
-        else { f += "]"; }
+        if(i != this.N-1) { f += " , "; }
       }
       else {
         f += this.items[i + this.left];
-        if(i != this.N-1) { f += ", "; }
-        else { f += "]"; }
+        if(i != this.N-1) { f += " , "; }
       }
   }
+  f += " ]";
   return f;
   }
 
   public static void main(String[] args) {
-
+    /* Unit Testing */
     Deque<String> testDeque = new ResizingArrayDeque<String>();
+    ArrayList<String> names = new ArrayList<String>();
+    names.add("Gunther");
+    names.add("Garth");
+    names.add("Gary");
+    names.add("Gus");
 
     // Pushing
     System.out.format("%n");
-    testDeque.pushLeft("Gunther");
-    System.out.format("After pushing Gunther left: %s%n", testDeque.toString());
-    testDeque.pushRight("Garth");
-    System.out.format("After pushing Garth right: %s%n", testDeque.toString());
-    testDeque.pushLeft("Gary");
-    System.out.format("After pushing Gary left: %s%n", testDeque.toString());
-    testDeque.pushRight("Gus");
-    System.out.format("After pushing Gus right: %s%n", testDeque.toString());
+    for (int i = 0; i < names.size(); i++) {
+      if (i % 2 == 0) {
+        testDeque.pushLeft(names.get(i));
+        System.out.format("After pushing %s left: %s%n", names.get(i), testDeque.toString());
+      } else {
+        testDeque.pushRight(names.get(i));
+        System.out.format("After pushing %s right: %s%n", names.get(i), testDeque.toString());
+      }
+    }
     System.out.format("Size of deque: %d%n%n", testDeque.size());
 
     // Popping
     int roof = testDeque.size();
-    for (int i = 0; i < roof; i++) {
-      if (i % 2 == 0) {
+    for (int j = 0; j < roof; j++) {
+      if (j % 2 == 0) {
         System.out.format("After popping %s left: %s%n", testDeque.popLeft(), testDeque.toString());
       } else {
         System.out.format("After popping %s right: %s%n", testDeque.popRight(), testDeque.toString());
