@@ -92,12 +92,11 @@ public class ResizingArrayDeque<T> implements Deque<T> {
       resize(this.items.length / 2);
     }
     return item;
-}
+  }
 
   public int size() { return this.N; }
   public boolean isEmpty() { return this.N == 0; }
   // public String toString();
 
 
-
- }
+}
