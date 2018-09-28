@@ -27,71 +27,48 @@ public class ResizingArrayDeque<T> implements Deque<T> {
     }
     this.items = newItems;
     this.left = 0;
-    this.right = this.N;
+    this.right = this.N - 1;
   }
 
   public void pushLeft(T item) {
-    if (this.N == this.items.length) {
-      resize(this.N * 2);
-    }
-    if (this.left == 0) {
-      this.left = items.length - 1;
-    }
-    else {
-      this.left--;
-    }
+    if (this.N == this.items.length) { resize(this.N * 2); }
+    if (this.N == 0) { this.left = 0; }
+    else if (this.N == 1) { this.left = this.right - 1; }
+    else if (this.left == 0) { this.left = items.length - 1; }
+    else { this.left--; }
     items[this.left] = item;
     this.N++;
-    if (this.right == this.items.length) {
-      this.right = 0;
-    }
   }
 
   public T popLeft() {
-    if (this.N == 0) {
-      throw new NoSuchElementException("EMPTY DEQUE");
-    }
+    if (this.N == 0) { throw new NoSuchElementException("EMPTY DEQUE"); }
     T item = this.items[this.left];
     this.items[this.left++] = null;
     if (this.left == this.items.length) { this.left = 0; }
-
     this.N--;
-    if (this.N < this.items.length / 4) {
-      resize(this.items.length / 2);
-    }
+    if (this.N < this.items.length / 4) { resize(this.items.length / 2); }
     return item;
   }
 
   public T peekLeft() { return this.items[this.left]; }
 
   public void pushRight(T item) {
-    if (this.N == this.items.length) {
-      resize(this.N * 2);
-    }
-    if (this.right == this.items.length) {
-      this.right = 0;
-    }
-    else {
-      this.right++;
-    }
+    if (this.N == this.items.length) { resize(this.N * 2); }
+    if (this.N == 0) { this.right = 0; }
+    else if (this.N == 1) { this.right = this.left + 1; }
+    else if (this.right == this.items.length - 1) { this.right = 0; }
+    else { this.right++; }
     items[this.right] = item;
     this.N++;
-    if (this.right == this.items.length) {
-      this.right = 0;
-    }
   }
 
   public T popRight() {
-    if (this.N == 0) {
-      throw new NoSuchElementException("EMPTY DEQUE");
-    }
+    if (this.N == 0) { throw new NoSuchElementException("EMPTY DEQUE"); }
     T item = this.items[this.right];
     this.items[this.right--] = null;
-    if (this.right == 0) { this.right = this.items.length; }
+    if (this.right < 0) { this.right = this.items.length - 1; }
     this.N--;
-    if (this.N < this.items.length / 4) {
-      resize(this.items.length / 2);
-    }
+    if (this.N < this.items.length / 4) { resize(this.items.length / 2); }
     return item;
   }
 
@@ -102,11 +79,8 @@ public class ResizingArrayDeque<T> implements Deque<T> {
   public boolean isEmpty() { return this.N == 0; }
 
   public String toString() {
-
     String f = "[ ";
-
     for (int i = 0; i < this.N; i++) {
-
       if (i + this.left >= items.length) {
         f += this.items[i + this.left - this.items.length];
         if(i != this.N-1) { f += " , "; }
@@ -115,9 +89,9 @@ public class ResizingArrayDeque<T> implements Deque<T> {
         f += this.items[i + this.left];
         if(i != this.N-1) { f += " , "; }
       }
-  }
-  f += " ]";
-  return f;
+    }
+    f += " ]";
+    return f;
   }
 
   public static void main(String[] args) {
